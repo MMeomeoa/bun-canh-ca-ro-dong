@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bún Canh Cá Rô Đồng - Hương Vị Tinh Hoa Đồng Quê</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter for general text, Playfair Display for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for fonts and specific elements */
+        body {
+            font-family: 'Inter', sans-serif;
+            @apply text-gray-800;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            @apply text-gray-900;
+        }
+        .hero-section {
+            background-image: url('images/hero-background.jpg'); /* Placeholder, replace with real image */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+        }
+        .btn-primary {
+            @apply bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-700 transition duration-300 ease-in-out transform hover:scale-105;
+        }
+        .section-heading {
+            @apply text-4xl font-extrabold text-center mb-12 relative;
+        }
+        .section-heading::after {
+            content: '';
+            @apply block w-20 h-1 bg-yellow-500 mx-auto mt-4 rounded-full;
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Thêm hiệu ứng chuyển đổi cho bình luận khách hàng */
+        .testimonial-item-slide {
+            opacity: 0;
+            display: none; /* Ban đầu ẩn tất cả các bình luận */
+            transition: opacity 1s ease-in-out;
+        }
+        .testimonial-item-slide.active {
+            opacity: 1;
+            display: block; /* Hiển thị bình luận đang hoạt động */
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md py-4 sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center">
+                <img src="images/logo.png" alt="Logo Bún Canh Cá Rô Đồng" class="h-16 w-16 rounded-full shadow-md mr-3">
+                <a href="#" class="text-2xl font-bold text-green-700 hover:text-green-800 transition duration-300">Bún Canh Cá Rô Đồng</a>
+            </div>
+            <ul class="flex space-x-6">
+                <li><a href="#home" class="text-lg font-medium text-gray-700 hover:text-green-600 transition duration-300">Trang Chủ</a></li>
+                <li><a href="#about" class="text-lg font-medium text-gray-700 hover:text-green-600 transition duration-300">Giới Thiệu</a></li>
+                <li><a href="#menu" class="text-lg font-medium text-gray-700 hover:text-green-600 transition duration-300">Thực Đơn</a></li>
+                <li><a href="#gallery" class="text-lg font-medium text-gray-700 hover:text-green-600 transition duration-300">Thư Viện Ảnh</a></li>
+                <li><a href="#testimonials" class="text-lg font-medium text-gray-700 hover:text-green-600 transition duration-300">Cảm Nhận</a></li>
+                <li><a href="#contact" class="text-lg font-medium text-gray-700 hover:text-green-600 transition duration-300">Liên Hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section h-screen flex items-center justify-center text-white text-center">
+            <div class="hero-overlay absolute inset-0"></div>
+            <div class="relative z-10 p-8">
+                <h1 class="text-6xl font-extrabold mb-6 leading-tight animate-fade-in-down">Bún Canh Cá Rô Đồng</h1>
+                <p class="text-2xl mb-10 leading-relaxed animate-fade-in-up">"Hương vị đồng quê tinh túy, gói trọn trong từng tô bún nóng hổi, đậm đà tình quê"</p>
+                <a href="#menu" class="btn-primary animate-bounce">Khám Phá Thực Đơn Ngay</a>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 bg-white">
+            <div class="text-3xl font-bold text-green-700 mb-6">
+                <h2 class="section-heading">Câu Chuyện Về Chúng Tôi</h2>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <img src="images/khach-hang2.jpg" alt="Hình ảnh quán ăn của chúng tôi" class="rounded-xl shadow-2xl transform hover:scale-105 transition duration-500 ease-in-out">
+                    </div>
+                    <div class="md:w-1/2 text-lg leading-relaxed text-gray-700">
+                        <p class="mb-6">Tại Bún Canh Cá Rô Đồng, chúng tôi không chỉ phục vụ một món ăn, mà còn là cả một di sản ẩm thực. Khởi nguồn từ niềm đam mê với hương vị đồng quê mộc mạc và mong muốn gìn giữ những giá trị truyền thống, quán ra đời với sứ mệnh mang đến cho thực khách những tô bún canh cá rô đồng chuẩn vị, được chế biến từ những nguyên liệu tươi ngon nhất.</p>
+                        <p class="mb-6">Mỗi con cá rô đồng được chọn lựa kỹ lưỡng từ các vùng quê, đảm bảo tươi sống và chắc thịt. Nước dùng được hầm công phu từ xương cá và các loại rau củ tự nhiên trong nhiều giờ, tạo nên vị ngọt thanh, đậm đà mà không hề ngấy. Sợi bún dai mềm, kết hợp cùng rau rút, rau ngót xanh mướt, hành thì là thơm lừng, tạo nên một bản giao hưởng hương vị khó quên.</p>
+                        <p class="mb-6 font-bold text-green-700">Đặc biệt, để mỗi bữa ăn của quý khách thêm trọn vẹn, chúng tôi phục vụ nước Lá Vối và nước La Hán hoàn toàn miễn phí. Quý khách sẽ được nhân viên phục vụ tận tình ngay tại bàn.</p>
+                        <p>Chúng tôi tin rằng, ẩm thực là cách tốt nhất để kết nối con người với văn hóa và ký ức. Hãy đến và cảm nhận sự chân thành, tinh tế trong từng tô bún canh cá rô đồng của chúng tôi!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-green-700 mb-6">Thực Đơn Đặc Sắc</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Menu Item 1: Bún Canh Cá Rô Đồng (Thông Thường) -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500 transform hover:scale-105 transition duration-500 ease-in-out">
+                        <img src="images/bun-dac-biet.jpg" alt="Bún Canh Cá Rô Đồng (Thông Thường)" class="w-full h-64 object-cover rounded-md mb-4">
+                        <h3 class="text-2xl font-bold text-green-700 mb-2 text-center">Bún Canh Cá Rô Đồng (Thông Thường)</h3>
+                        <p class="text-yellow-600 text-xl font-semibold mb-4 text-center">30.000 VNĐ</p>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Một sự kết hợp độc đáo và quen thuộc, món ăn này mang đến sự hài hòa giữa vị ngọt của thịt cá rô đồng, sự dai giòn của chả cá tự làm, và vị đậm đà, thơm ngon của giò lụa. Đây là lựa chọn hoàn hảo cho những ai muốn thưởng thức một bát bún canh cá rô đồng truyền thống với một chút biến tấu mới lạ.
+                        </p>
+                        <ul class="text-gray-600 text-sm space-y-2">
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Cá rô đồng tươi ngon</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Thêm chả cá và giò lụa</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Nước dùng hầm xương cá truyền thống</li>
+                        </ul>
+                    </div>
+
+                    <!-- Menu Item 2: Bún Canh Cá Rô Đồng (Đặc Biệt) -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500 transform hover:scale-105 transition duration-500 ease-in-out">
+                        <img src="images/bun-them-cha-ca.jpg" alt="Bún Canh Cá Rô Đồng (Đặc Biệt)" class="w-full h-64 object-cover rounded-md mb-4">
+                        <h3 class="text-2xl font-bold text-green-700 mb-2 text-center">Bún Canh Cá Rô Đồng (Đặc Biệt)</h3>
+                        <p class="text-yellow-600 text-xl font-semibold mb-4 text-center">50.000 VNĐ</p>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Đây là phiên bản cao cấp nhất của quán, với phần cá rô đồng và nước dùng dồi dào hơn hẳn. Đặc biệt, món ăn được tăng thêm hương vị và dinh dưỡng với trứng cá rô đồng béo ngậy, tạo nên một trải nghiệm ẩm thực vô cùng đầy đặn và khó quên.
+                        </p>
+                        <ul class="text-gray-600 text-sm space-y-2">
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Cá rô đồng tươi sống 100%</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Thêm trứng cá và phần ăn đầy đặn</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Nước dùng hầm xương cá tự nhiên</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Rau sạch từ vườn nhà</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Thêm mục mới cho đồ uống miễn phí -->
+                <div class="mt-16 text-center">
+                    <h3 class="text-3xl font-bold text-green-700 mb-6">Đồ Uống Miễn Phí Tại Quán</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-10">
+                        <!-- Nước Lá Vối -->
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500 max-w-sm">
+                            <img src="images/nuoc-la-voi.jpg" alt="Nước Lá Vối" class="w-full h-auto object-cover rounded-md mb-4">
+                            <h4 class="text-2xl font-bold text-green-700 mb-2">Nước Lá Vối</h4>
+                            <p class="text-yellow-600 text-xl font-semibold mb-4">MIỄN PHÍ</p>
+                            <p class="text-gray-700 leading-relaxed">Nước lá vối thanh mát, có vị chát nhẹ và hậu ngọt, giúp giải nhiệt và kích thích tiêu hóa sau bữa ăn.</p>
+                        </div>
+                        <!-- Nước La Hán -->
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500 max-w-sm">
+                            <img src="images/la-han-qua-1.jpg" alt="Nước La Hán" class="w-full h-auto object-cover rounded-md mb-4">
+                            <h4 class="text-2xl font-bold text-green-700 mb-2">Nước La Hán</h4>
+                            <p class="text-yellow-600 text-xl font-semibold mb-4">MIỄN PHÍ</p>
+                            <p class="text-gray-700 leading-relaxed">Nước la hán ngọt dịu, thơm mát, rất tốt cho sức khỏe, đặc biệt là hệ hô hấp. Một lựa chọn tuyệt vời để cân bằng vị giác.</p>
+                        </div>
+                    </div>
+                    <p class="text-center mt-8 text-xl font-bold text-green-700">Được phục vụ tận tình bởi đội ngũ nhân viên của chúng tôi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="section-heading">Thư Viện Ảnh</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <img src="images/about-us.jpg" alt="Không gian quán ăn" class="gallery-item w-full h-64 object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition duration-300">
+                    <img src="images/hinh-anh-quan.jpg" alt="Nguyên liệu tươi ngon" class="gallery-item w-full h-64 object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition duration-300">
+                    <img src="images/che-bien.jpg" alt="Món ăn bún canh cá rô đồng 2" class="gallery-item w-full h-64 object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition duration-300">
+                    <img src="images/gia-vi.jpg" alt="Khách hàng hài lòng" class="gallery-item w-full h-64 object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition duration-300">
+                    <img src="images/bi-quyet.jpg" alt="Bí quyết chế biến" class="gallery-item w-full h-64 object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition duration-300">
+                    <img src="images/gallery1.jpg" alt="Món ăn bún canh cá rô đồng 3" class="gallery-item w-full h-64 object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition duration-300">
+                    <img src="images/nguyen-lieu-tuoi2.jpg" alt="Gia vị truyền thống" class="gallery-item w-full h-64 object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition duration-300">
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Modal -->
+        <div id="imageModal" class="modal">
+            <span class="close-button">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="section-heading">Cảm Nhận Từ Khách Hàng</h2>
+                <!-- Testimonials Container: Đã chỉnh sửa để chứa các bình luận -->
+                <div id="testimonials-carousel" class="relative max-w-3xl mx-auto overflow-hidden">
+                    <!-- Bình luận 1 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Tô bún canh cá rô đồng ở đây thực sự đỉnh cao! Nước dùng ngọt thanh, thịt cá chắc và không hề tanh. Cảm giác như được trở về tuổi thơ với hương vị đồng quê."</p>
+                        <div class="flex items-center">
+                            <img src="images/doanh-nhan1.jpg" alt="Khách hàng 1" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Trần Văn Hùng</p>
+                                <p class="text-sm text-gray-500">Doanh nhân</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 2 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Tôi là người rất khó tính trong ăn uống nhưng Bún Canh Cá Rô Đồng đã hoàn toàn chinh phục tôi. Món cá tái rất tươi, nước dùng trong veo và đậm đà. Nhất định sẽ quay lại!"</p>
+                        <div class="flex items-center">
+                            <img src="images/doanh-nhan.jpg" alt="Khách hàng 2" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Nguyễn Thị Lan Anh</p>
+                                <p class="text-sm text-gray-500">Chuyên gia ẩm thực</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 3 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Không gian quán ấm cúng, phục vụ nhiệt tình. Món bún canh cá rô đồng thêm chả cá là sự kết hợp tuyệt vời. Một trải nghiệm ẩm thực đáng giá tiền."</p>
+                        <div class="flex items-center">
+                            <img src="images/doanh-nhan2.jpg" alt="Khách hàng 3" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Phạm Minh Thư</p>
+                                <p class="text-sm text-gray-500">Blogger du lịch</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 4 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Món ăn tuyệt vời, hương vị đậm đà khó quên. Gia đình tôi rất thích, sẽ ghé thăm thường xuyên."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang5.jpg" alt="Khách hàng 4" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Hoàng Lê</p>
+                                <p class="text-sm text-gray-500">Khách hàng quen</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 5 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Đến quán này thì không thể bỏ qua món bún canh cá đặc biệt. Nước dùng thanh ngọt, thịt cá rô chắc ngọt không chê vào đâu được."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang6.jpg" alt="Khách hàng 5" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Lê Văn Toàn</p>
+                                <p class="text-sm text-gray-500">Nhân viên văn phòng</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 6 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Quán có không gian rất sạch sẽ, thoáng đãng. Món ăn ngon, giá cả hợp lý. Rất thích hợp để đãi bạn bè."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang7.jpg" alt="Khách hàng 6" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Nguyễn Ngọc Chi</p>
+                                <p class="text-sm text-gray-500">Sinh viên</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 7 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Đây là địa điểm ăn bún cá rô đồng yêu thích của tôi. Hương vị truyền thống, nguyên liệu tươi ngon. Quán rất đáng để thử!"</p>
+                        <div class="flex items-center">
+                            <img src="images/k.jpg" alt="Khách hàng 7" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Phan Thành Chung</p>
+                                <p class="text-sm text-gray-500">Giảng viên</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 8 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Món bún canh cá rô chiên giòn rất đặc biệt. Lớp vỏ giòn tan, thịt cá bên trong vẫn mềm, ăn rất cuốn. Cả gia đình đều khen ngon."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang9.jpg" alt="Khách hàng 8" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Nguyễn Văn Khôi</p>
+                                <p class="text-sm text-gray-500">Kỹ sư xây dựng</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 9 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Nước dùng thanh ngọt tuyệt vời. Tôi rất ấn tượng với chất lượng nguyên liệu ở đây, tươi ngon và sạch sẽ. Sẽ giới thiệu cho bạn bè."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang10.jpg" alt="Khách hàng 9" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Bùi Minh Ngọc</p>
+                                <p class="text-sm text-gray-500">Giáo viên</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 10 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Phục vụ rất chuyên nghiệp và nhanh nhẹn. Quán luôn đông khách nhưng không phải đợi lâu. Một điểm cộng lớn!"</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang11.jpg" alt="Khách hàng 10" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Trần Đức Chính</p>
+                                <p class="text-sm text-gray-500">Quản lý</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 11 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Không gian quán ấm cúng, mang lại cảm giác thư giãn. Món bún canh cá rô đồng chả cá rất ngon, chả cá dai và đậm vị."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang12.jpg" alt="Khách hàng 11" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Ngô Thuỳ Linh</p>
+                                <p class="text-sm text-gray-500">Designer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 12 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Tôi thường xuyên đưa đối tác nước ngoài đến đây thưởng thức. Họ rất thích hương vị truyền thống của món ăn và không gian đậm chất Việt Nam."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang13.jpg" alt="Khách hàng 12" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Phan Anh Tú</p>
+                                <p class="text-sm text-gray-500">Hướng dẫn viên du lịch</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 13 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Đồ ăn ngon, giá cả hợp lý, không gian sạch sẽ. Chắc chắn sẽ quay lại vào cuối tuần cùng bạn bè."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang14.jpg" alt="Khách hàng 13" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Nguyễn Ngọc Huyền</p>
+                                <p class="text-sm text-gray-500">Bác sĩ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 14 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Món cá tái rất tươi và ngọt. Nước dùng đậm vị nhưng không bị gắt. Rất hài lòng!"</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang15.jpg" alt="Khách hàng 14" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Lê Thanh Hải</p>
+                                <p class="text-sm text-gray-500">Họa sĩ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 15 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Một trải nghiệm ẩm thực tuyệt vời! Món bún canh ở đây khiến tôi nhớ về hương vị của quê hương. Sẽ là địa chỉ ruột của tôi từ nay về sau."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang16.jpg" alt="Khách hàng 15" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Trần Thị Bích</p>
+                                <p class="text-sm text-gray-500">Nội trợ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 16 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Món ăn rất chất lượng, nhân viên thân thiện. Quán còn có nhiều góc chụp ảnh rất đẹp nữa."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang17.jpg" alt="Khách hàng 16" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Phạm Văn Cường</p>
+                                <p class="text-sm text-gray-500">Nhiếp ảnh gia</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 17 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Vị cá rô đồng thật sự rất đặc trưng, không bị lẫn với các loại cá khác. Bún cũng rất mềm, ăn vào tan trong miệng."</p>
+                        <div class="flex items-center">
+                            <img src="images/khach-hang18.jpg" alt="Khách hàng 17" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Nguyễn Hà Phương</p>
+                                <p class="text-sm text-gray-500">Chủ cửa hàng</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 18 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Quán rất chú trọng đến chất lượng món ăn và dịch vụ. Tôi cảm thấy rất thoải mái mỗi khi đến đây."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/4CAF50/FFFFFF?text=KH18" alt="Khách hàng 18" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Đào Minh Khang</p>
+                                <p class="text-sm text-gray-500">Kinh doanh tự do</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 19 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Thực đơn đa dạng, các món đều ngon. Bún canh cá rô đồng là món "tủ" của tôi. Sẽ giới thiệu cho đồng nghiệp."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/FFC107/FFFFFF?text=KH19" alt="Khách hàng 19" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Lê Thị Thanh</p>
+                                <p class="text-sm text-gray-500">Trưởng phòng</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 20 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Món ăn rất ngon, nước dùng đậm đà mà không hề béo ngậy. Đây là địa điểm lý tưởng để thưởng thức ẩm thực Việt Nam."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/4CAF50/FFFFFF?text=KH20" alt="Khách hàng 20" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Phan Văn Tùng</p>
+                                <p class="text-sm text-gray-500">Marketing Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 21 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Chả cá ở đây làm rất vừa miệng, dai ngon. Khi ăn kèm với bún canh cá rô đồng thì ngon hết sảy."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/FFC107/FFFFFF?text=KH21" alt="Khách hàng 21" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Nguyễn Tuấn Hưng</p>
+                                <p class="text-sm text-gray-500">Content Creator</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 22 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Mình đi ăn với bạn bè, ai cũng khen ngon. Quán rất sạch sẽ, không gian yên tĩnh, rất phù hợp để trò chuyện."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/4CAF50/FFFFFF?text=KH22" alt="Khách hàng 22" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Trần Thùy Chi</p>
+                                <p class="text-sm text-gray-500">Freelancer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 23 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Món bún canh cá rô đồng cá tái của quán rất tươi ngon, ăn kèm rau sống sạch, tươi. Cực kỳ đáng tiền!"</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/FFC107/FFFFFF?text=KH23" alt="Khách hàng 23" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Hoàng Anh Khoa</p>
+                                <p class="text-sm text-gray-500">Lập trình viên</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 24 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Món bún canh cá rô đồng chiên giòn rất đặc biệt. Lớp vỏ giòn tan, thịt cá bên trong vẫn mềm, ăn rất cuốn. Cả gia đình đều khen ngon."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/4CAF50/FFFFFF?text=KH24" alt="Khách hàng 24" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Vũ Minh Hiếu</p>
+                                <p class="text-sm text-gray-500">Chuyên viên tư vấn</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 25 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Bún canh cá rô đồng ở đây có một hương vị rất riêng. Nước dùng đậm đà nhưng không bị gắt. Rất hài lòng với chất lượng món ăn."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/FFC107/FFFFFF?text=KH25" alt="Khách hàng 25" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Phan Văn Duy</p>
+                                <p class="text-sm text-gray-500">Chuyên gia tài chính</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 26 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Quán có nhiều món ăn hấp dẫn, nhưng bún canh cá rô đồng vẫn là món tôi thích nhất. Sẽ quay lại nhiều lần nữa."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/4CAF50/FFFFFF?text=KH26" alt="Khách hàng 26" class="w-16 h-16 rounded-full mr-4 border-2 border-yellow-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Trần Thị Mai</p>
+                                <p class="text-sm text-gray-500">Doanh nhân</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bình luận 27 -->
+                    <div class="testimonial-item-slide bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <p class="text-lg italic mb-6 text-gray-700">"Món ăn rất ngon, nước dùng đậm đà mà không hề béo ngậy. Đây là địa điểm lý tưởng để thưởng thức ẩm thực Việt Nam."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/FFC107/FFFFFF?text=KH27" alt="Khách hàng 27" class="w-16 h-16 rounded-full mr-4 border-2 border-green-500">
+                            <div>
+                                <p class="font-bold text-gray-900">Lê Văn Hùng</p>
+                                <p class="text-sm text-gray-500">Họa sĩ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="section-heading">Liên Hệ Với Chúng Tôi</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Contact Info -->
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-lg flex flex-col justify-center">
+                        <h3 class="text-3xl font-bold text-green-700 mb-6 text-center md:text-left">Thông Tin Liên Hệ</h3>
+                        <p class="flex items-center text-lg mb-4 text-gray-700"><i class="fas fa-map-marker-alt text-green-500 mr-3 text-2xl"></i>Địa chỉ: 326 Đường Dương Trực, Nguyên Thường Tín, TP Hà Nội</p>
+                        <p class="flex items-center text-lg mb-4 text-gray-700"><i class="fas fa-phone-alt text-green-500 mr-3 text-2xl"></i>Điện thoại: <a href="tel:+84563004200" class="hover:underline">0563004200</a></p>
+                        <p class="flex items-center text-lg mb-4 text-gray-700"><i class="fas fa-envelope text-green-500 mr-3 text-2xl"></i>Email: <a href="mailto:info@buncanhcarodong.com" class="hover:underline">info@buncanhcarodong.com</a></p>
+                        <p class="flex items-center text-lg mb-4 text-gray-700"><i class="fas fa-clock text-green-500 mr-3 text-2xl"></i>Giờ mở cửa: 7:00 AM - 9:00 PM (Thứ Hai - Chủ Nhật)</p>
+                        <div class="mt-8 flex justify-center md:justify-start space-x-6">
+                            <!-- Thay '#' bằng liên kết Facebook của bạn -->
+                            <a href="#" class="text-green-600 hover:text-green-800 text-3xl transition duration-300"><i class="fab fa-facebook-square"></i></a>
+                            <!-- Thay '#' bằng liên kết Instagram của bạn -->
+                            <a href="#" class="text-green-600 hover:text-green-800 text-3xl transition duration-300"><i class="fab fa-instagram-square"></i></a>
+                            <!-- Thay '#' bằng liên kết TikTok của bạn -->
+                            <a href="#" class="text-green-600 hover:text-green-800 text-3xl transition duration-300"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Google Map -->
+                    <div class="rounded-xl shadow-lg overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.046908077553!2d105.80806447500331!3d20.95759718063344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac59599d146f%3A0xc49d05e2524f2b18!2zMzI2IEtodSA0IMSQxrDGoW5nIFRyw7pjIE5ndXnDqm4sIFRoaeG7h3QgVsG7kSwgVGjGsOG7nW5nIFTDDrW5LCBIYW7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1717616641525!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="mt-16 bg-gray-50 p-10 rounded-xl shadow-lg max-w-2xl mx-auto">
+                    <h3 class="text-3xl font-bold text-green-700 mb-8 text-center">Gửi Tin Nhắn Cho Chúng Tôi</h3>
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-lg font-medium text-gray-700 mb-2">Tên của bạn</label>
+                            <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 transition duration-200" placeholder="Nguyễn Văn A" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-lg font-medium text-gray-700 mb-2">Email của bạn</label>
+                            <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 transition duration-200" placeholder="email@example.com" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-lg font-medium text-gray-700 mb-2">Nội dung tin nhắn</label>
+                            <textarea id="message" name="message" rows="6" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 transition duration-200" placeholder="Tôi muốn hỏi về..." required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn-primary w-full md:w-auto">Gửi Tin Nhắn</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4">&copy; 2025 Bún Canh Cá Rô Đồng. Tất cả quyền được bảo lưu.</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <!-- Thay '#' bằng liên kết Facebook của bạn -->
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                <!-- Thay '#' bằng liên kết Instagram của bạn -->
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                <!-- Thay '#' bằng liên kết TikTok của bạn -->
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-tiktok text-xl"></i></a>
+            </div>
+            <p class="text-gray-500 text-sm">Thiết kế và Phát triển bởi Gemini AI</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling cho các anchor links
+            document.querySelectorAll('nav ul li a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        // Tính toán vị trí cuộn, trừ đi chiều cao của header cố định
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Xử lý form liên hệ (chỉ frontend)
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Ngăn chặn form gửi đi thực sự
+                    // Thay vì alert, bạn có thể hiển thị một thông báo tùy chỉnh trên UI
+                    alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.');
+                    this.reset(); // Xóa các trường trong form
+                });
+            }
+
+            // Xử lý Gallery Modal
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeButton = document.querySelector('.close-button');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    imageModal.style.display = 'flex'; // Hiển thị modal
+                    modalImage.src = this.src; // Đặt nguồn ảnh của modal
+                });
+            });
+
+            closeButton.addEventListener('click', function() {
+                imageModal.style.display = 'none'; // Ẩn modal khi nhấn nút đóng
+            });
+
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) { // Ẩn modal khi click ra ngoài ảnh
+                    imageModal.style.display = 'none';
+                }
+            });
+            
+            // Xử lý tự động chạy các bình luận khách hàng
+            const testimonialItems = document.querySelectorAll('.testimonial-item-slide');
+            let currentTestimonialIndex = 0;
+            
+            function showTestimonial(index) {
+                testimonialItems.forEach(item => item.classList.remove('active'));
+                if (testimonialItems[index]) {
+                    testimonialItems[index].classList.add('active');
+                }
+            }
+            
+            // Hiển thị bình luận đầu tiên ngay khi tải trang
+            if (testimonialItems.length > 0) {
+                showTestimonial(currentTestimonialIndex);
+            }
+            
+            // Đặt khoảng thời gian để chuyển đổi bình luận
+            setInterval(() => {
+                currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonialItems.length;
+                showTestimonial(currentTestimonialIndex);
+            }, 5000); // Tự động chuyển sau mỗi 5 giây
+        });
+    </script>
+</body>
+</html>
